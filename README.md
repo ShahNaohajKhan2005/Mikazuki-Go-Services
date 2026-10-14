@@ -27,3 +27,7 @@ This repository preserves the storefront and functionality. Existing records fro
 `npm ci` then `npm test`. For Vercel runtime development, use `npx vercel dev` with a local untracked environment file. Never commit `.env`, tokens, private passwords, or storage credentials.
 
 No payment checkout or order submission is connected. Inquiries are copyable messages, and layout-preview cards are clearly labeled examples, not accounts for sale.
+
+## Community account submissions
+
+Visitors can use **Sell account** to submit their seller display name, public HTTPS contact/shop link, account specifications, and selling price in **BDT (৳)**. These submissions are pending until the administrator approves or rejects them. The administrator's **Pending seller submissions** queue provides review actions. Approved community accounts display their seller contact link. Public submissions are text-only; the administrator can add images/PDFs after review. Pending content is stored in the public Blob store and must not contain private information. Configure Vercel Firewall rate limits on `/api/submissions` to control spam.
