@@ -1,0 +1,2 @@
+import {objects} from '../lib/storage.js';import {json} from '../lib/auth.js';
+export async function GET(request){const id=new URL(request.url).searchParams.get('id');if(!/^[a-f0-9-]{36}$/.test(id||''))return json({error:'File not found.'},404);try{const entries=await objects('attachments/'+id+'/');if(!entries.length)return json({error:'File not found.'},404);return Response.redirect(entries[0].url,302)}catch{return json({error:'Could not load file.'},500)}}

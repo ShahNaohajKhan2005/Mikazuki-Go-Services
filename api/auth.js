@@ -1,0 +1,4 @@
+import {authorized,configured,passwordMatches,sessionToken,sameOrigin,cookie,json} from '../lib/auth.js';
+export async function GET(request){return json({canManage:authorized(request),configured:configured()})}
+export async function POST(request){if(!sameOrigin(request))return json({error:'Invalid request origin.'},403);if(!configured())return json({error:'Set ADMIN_PASSWORD and SESSION_SECRET in Vercel first.'},503);if(Number(request.headers.get('content-length')||0)>4096)return json({error:'Request too large.'},413);try{const body=await request.json();if(!passwordMatches(body.password))return json({error:'Incorrect password.'},401);return json({canManage:true},200,{'Set-Cookie':cookie(sessionToken())})}catch{return json({error:'Invalid request.'},400)}}
+export async function DELETE(request){if(!sameOrigin(request))return json({error:'Invalid request origin.'},403);return json({canManage:false},200,{'Set-Cookie':cookie('')})}
